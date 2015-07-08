@@ -13,23 +13,27 @@ app.directive 'progress', () ->
             .attr('height', height)
             .append('g')
             .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+
     outerArc = d3.svg.arc()
             .innerRadius(80)
             .outerRadius(90)
             .startAngle(0)
+
     innerArc = d3.svg.arc()
             .innerRadius(70)
             .outerRadius(75)
             .startAngle(0)
+
     outer = svg.append('path')
             .datum(endAngle: 0.127 * τ)
+            .attr('stroke-linejoin', 'round')
             .style('fill', 'orange')
-            .style('stroke-linecap', 'round')
             .attr('d', outerArc)
+
     inner = svg.append('path')
             .datum(endAngle: 0.127 * τ)
-            .style('fill', 'red')
-            .style('stroke-linecap', 'round')
+            .attr('stroke-linejoin', 'round')
+            .style('fill', '#c7e596')
             .attr('d', innerArc)
     circle = svg.append('circle')
             .attr('r', 65)
@@ -56,15 +60,15 @@ app.directive 'progress', () ->
 
     # Update the value
     update = () ->
-      actualPercentage = parseFloat(scope.actual) * 100 / 1
+      actualPercentage = parseFloat(scope.actual) * 100
 
       outer.transition()
-           .duration(750)
-           .style('fill', if scope.actual < 0.25 then 'red' else 'orange')
+           .duration(1000)
+           .style('fill', if scope.actual < 0.25 then 'red' else if scope.actual < 0.50 then '#F7650B' else 'orange')
            .call(createTween(outerArc), scope.actual * τ);
 
       inner.transition()
-           .duration(750)
+           .duration(1000)
            .call(createTween(innerArc), scope.expected * τ);
       # update the text
       line1.text('%' + actualPercentage.toFixed(0))
