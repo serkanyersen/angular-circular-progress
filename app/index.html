@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Circular Progress Indicators</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body ng-app="circular" ng-controller="MainCtrl as main">
+  <div class="content">
+    <input type="text" size="4" ng-model="main.actual">
+    <input type="text" size="4" ng-model="main.expected">
+    <div progress data-actual="main.actual" data-expected="main.expected"></div>
+  </div>
+
+  <script src="js/lib.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
