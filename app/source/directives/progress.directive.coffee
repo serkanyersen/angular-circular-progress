@@ -57,15 +57,16 @@ app.directive 'progress', () ->
     # Update the value
     update = () ->
       actualPercentage = parseFloat(scope.actual) * 100 / 1
-      arcPerc = 360 * actualPercentage / 100
 
       outer.transition()
            .duration(750)
+           .style('fill', if scope.actual < 0.25 then 'red' else 'orange')
            .call(createTween(outerArc), scope.actual * τ);
 
       inner.transition()
            .duration(750)
            .call(createTween(innerArc), scope.expected * τ);
+      # update the text
       line1.text('%' + actualPercentage.toFixed(0))
 
     # Update the progress whenever the value changes
