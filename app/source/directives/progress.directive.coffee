@@ -15,7 +15,8 @@ app.directive 'progress', () ->
             .attr('width', width)
             .attr('height', height)
             .append('g')
-            .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+            .attr('transform',
+                'translate(' + width / 2 + ',' + height / 2 + ')')
 
     # creates an arc with outer radius
     # and given tickness
@@ -29,16 +30,21 @@ app.directive 'progress', () ->
     # that follow given destination
     line = (color, d) ->
       svg.append('path')
-         .datum(endAngle: 0)
-         .style('fill', color)
-         .attr('d', d)
-         # does not work for unknown reason
-         .attr('stroke-linecap', 'round')
-         .attr('stroke-linejoin', 'round')
+        .datum(endAngle: 0)
+        .style('fill', color)
+        .attr('d', d)
+        # does not work for unknown reason
+        .attr('stroke-linecap', 'round')
+        .attr('stroke-linejoin', 'round')
 
     # return a color according to given value
     getColor = (value) ->
-      if value < 0.25 then '#ff0000' else if value < 0.50 then '#F7640A' else '#78c000'
+      if value < 0.25
+        return '#ff0000'
+      else if value < 0.50
+        return '#F7640A'
+      else
+        return '#78c000'
 
     # arc for path to follow
     outerArc = arc(rad, 10)
@@ -55,7 +61,7 @@ app.directive 'progress', () ->
 
     # First line of text
     line1 = svg.append('text')
-               .style("text-anchor", "middle")
+              .style("text-anchor", "middle")
 
     # Span for the number field which we will update later
     number = line1.append('tspan')
@@ -66,16 +72,16 @@ app.directive 'progress', () ->
     # Percentage sign. it's separate because
     # it has a different style
     line1.append('tspan')
-         .style('font-size', '1.5em')
-         .text('%')
+        .style('font-size', '1.5em')
+        .text('%')
 
     # Progress text
     line2 = svg.append('text')
-               .attr('dy', '10%')
-               .style("text-anchor", "middle")
-               .style('font-size', '1em')
-               .style('fill', '#888')
-               .text('Progress')
+              .attr('dy', '10%')
+              .style("text-anchor", "middle")
+              .style('font-size', '1em')
+              .style('fill', '#888')
+              .text('Progress')
 
     # return a new tween function that uses
     # given arc for animation
@@ -89,20 +95,20 @@ app.directive 'progress', () ->
 
     update = () ->
       # make sure actual and expected is in between 0 and 1
-      actual = [0, parseFloat(scope.actual) or 0, 1].sort()[1];
-      expected = [0, parseFloat(scope.expected) or 0, 1].sort()[1];
+      actual = [0, parseFloat(scope.actual) or 0, 1].sort()[1]
+      expected = [0, parseFloat(scope.expected) or 0, 1].sort()[1]
 
       # Percantage to show
       actualPercentage = (parseFloat(scope.actual) or 0) * 100
 
       outer.transition()
-           .duration(1000)
-           .style('fill', getColor(actual))
-           .call(createTween(outerArc), actual * τ);
+          .duration(1000)
+          .style('fill', getColor(actual))
+          .call(createTween(outerArc), actual * τ)
 
       inner.transition()
-           .duration(1000)
-           .call(createTween(innerArc), expected * τ);
+          .duration(1000)
+          .call(createTween(innerArc), expected * τ)
 
       # update the text
       number.text(actualPercentage.toFixed(0))
