@@ -4,6 +4,29 @@ html, body
   margin: 0
   padding: 0
 
+body
+  font-family: Avenir, sans
+  color: #888
+  font-size: 100%
+  background: #f5f5f5
+
 .content
   padding: 100px
   text-align: center
+
+.progress-indicator
+  display: inline
+  margin: 10px
+
+%item-container
+  border: 1px solid #ccc
+  background: #FFF
+  margin: 10px
+  padding: 10px
+
+.random-items
+  @extend %item-container
+
+.manual-item
+  @extend %item-container
+

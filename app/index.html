@@ -7,10 +7,27 @@
 </head>
 <body ng-app="circular" ng-controller="MainCtrl as main">
   <div class="content">
-    <input type="text" size="4" ng-model="main.actual">
-    <input type="text" size="4" ng-model="main.expected">
-    <input type="button" value="random" ng-click="main.random()">
-    <div progress data-actual="main.actual" data-expected="main.expected"></div>
+    <div class="random-items">
+      <div progress
+           data-actual="val.actual"
+           data-expected="val.expected"
+           ng-repeat="val in main.numbers"
+           class="progress-indicator"></div>
+
+      <div class="button-container">
+        <input type="button" value="Randomize" ng-click="main.random()">
+      </div>
+    </div>
+
+    <div class="manual-item">
+      <div progress data-actual="main.actual" data-expected="main.expected">
+      </div>
+
+      <div class="input-container">
+        <input type="text" size="4" ng-model="main.actual">
+        <input type="text" size="4" ng-model="main.expected">
+      </div>
+    </div>
   </div>
 
   <script src="js/lib.js"></script>
