@@ -1,4 +1,4 @@
-describe 'Main Controller', () ->
+describe 'Main Controller', ->
   createController = undefined
   ctrl = undefined
   # to check if it's float
@@ -12,25 +12,25 @@ describe 'Main Controller', () ->
       createController = ->
         ctrl = $controller 'MainCtrl'
 
-  it 'should have default values', () ->
+  it 'should have default values', ->
     createController()
 
     expect(ctrl.actual).toBe(0.5)
     expect(ctrl.expected).toBe(0.5)
 
-  it 'should have default list of 3 values', () ->
+  it 'should have default list of 3 values', ->
     createController()
 
     expect(ctrl.numbers.length).toBe(3)
 
-  it 'numbers should contain correct values', () ->
+  it 'numbers should contain correct values', ->
     createController()
 
     for number in ctrl.numbers
       expect(isFloat number.actual).toBe yes
       expect(isFloat number.expected).toBe yes
 
-  it 'should generate random values', () ->
+  it 'should generate random values', ->
     current = JSON.stringify(ctrl.numbers)
 
     # Due to the nature of random, this test might fail

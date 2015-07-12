@@ -6,13 +6,13 @@ app.controller 'MainCtrl',
         # Random set
         numbers: [
             actual: 0.2
-            expected: 0.2
+            expected: 0.3
           ,
             actual: 0.4
-            expected: 0.4
+            expected: 0.6
           ,
-            actual: 0.8
-            expected: 0.8
+            actual: 0.6
+            expected: 0.9
         ]
 
         random: ->
