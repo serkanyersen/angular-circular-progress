@@ -1,3 +1,4 @@
+
 module.exports = function(grunt) {
     'use strict';
 
@@ -19,7 +20,11 @@ module.exports = function(grunt) {
                     join: true
                 },
                 files: {
-                  'dist/js/app.js': ['app/source/main.coffee', 'app/source/**/*.coffee']
+                    'dist/js/app.js': [
+                        'app/source/main.coffee',
+                        'app/source/**/*.coffee',
+                        '!app/source/**/*.spec.coffee'
+                    ]
                 }
             },
         },
@@ -46,6 +51,7 @@ module.exports = function(grunt) {
                     dest: 'dist/js/lib.js',
                     src: [
                         'app/lib/*.js',
+                        '!app/lib/angular.mock.js'
                     ]
                 }]
             }

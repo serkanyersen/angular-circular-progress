@@ -11,6 +11,15 @@
     "grunt-contrib-connect": "^0.10.1",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-sass": "^1.0.0"
+    "grunt-sass": "^1.0.0",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.37",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "phantomjs": "^1.9.17"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.3",
+    "karma-coffee-preprocessor": "^0.3.0"
   }
 }
