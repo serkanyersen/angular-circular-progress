@@ -51,7 +51,9 @@ module.exports = function(grunt) {
                     dest: 'dist/js/lib.js',
                     src: [
                         'app/lib/*.js',
-                        '!app/lib/angular.mock.js'
+                        '!app/lib/angular.mock.js',
+                        '!app/lib/jasmine*.js',
+                        '!app/lib/jquery.js'
                     ]
                 }]
             }

@@ -77,7 +77,7 @@ app.controller 'ProgressCtrl',
         @number = line1.append('tspan')
                       .style('font-size', '3em')
                       .style('fill', '#444')
-                      .text('80%')
+                      .text('0')
 
         # Percentage sign. it's separate because
         # it has a different style

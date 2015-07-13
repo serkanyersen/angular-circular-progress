@@ -11,9 +11,11 @@ module.exports = (config) ->
       # Lib files
       'app/lib/angular.js'
       'app/lib/angular*.js'
-      'app/lib/*.js'
+      'app/lib/d3.js'
 
       # test helper
+      'app/lib/jquery.js'
+      'app/lib/jasmine-jquery.js'
       'app/lib/d3-spy.coffee'
 
       # App files
