@@ -5,26 +5,25 @@ app.controller 'ProgressCtrl',
         @τ = 2 * Math.PI
         @width = 200
         @height = 200
-        @rad = (@width / 2)
+        @rad = (@width / 2) - 10
         @offset = @rad * 0.02
 
       # creates an arc with outer radius
       # and given tickness
-      arc: (radius, tickness) ->
+      arc: (radius) ->
         d3.svg.arc()
           .outerRadius(radius)
-          .innerRadius(radius - tickness)
+          .innerRadius(radius)
           .startAngle(0)
 
       # draws a line with given color
       # that follow given destination
-      line: (color, d) ->
+      line: (color, width, d) ->
         @svg.append('path')
           .datum(endAngle: 0)
-          .style('fill', color)
+          .style('stroke', color)
+          .style('stroke-width', width)
           .attr('d', d)
-          # does not work for unknown reason
-          .attr('stroke-linecap', 'round')
           .attr('stroke-linejoin', 'round')
 
       # return a color according to given value
@@ -57,12 +56,12 @@ app.controller 'ProgressCtrl',
                     'translate(' + @width / 2 + ',' + @height / 2 + ')')
 
         # arc for path to follow
-        @outerArc = @arc(@rad, 10)
-        @innerArc = @arc(@rad - (@offset + 10), 5)
+        @outerArc = @arc(@rad)
+        @innerArc = @arc(@rad - (@offset + 8))
 
         # inner and outer paths
-        @outer = @line('orange', @outerArc)
-        @inner = @line('#c7e596', @innerArc)
+        @outer = @line('orange', '8px', @outerArc)
+        @inner = @line('#c7e596', '4px', @innerArc)
 
         # circle for the text backrgound
         circle = @svg.append('circle')
@@ -103,7 +102,7 @@ app.controller 'ProgressCtrl',
 
         @outer.transition()
             .duration(1000)
-            .style('fill', @getColor(actual))
+            .style('stroke', @getColor(actual))
             .call(@createTween(@outerArc), actual * @τ)
 
         @inner.transition()

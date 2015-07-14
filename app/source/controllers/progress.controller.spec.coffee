@@ -41,7 +41,7 @@ describe 'Progress Indicator Controller', ->
     it 'should render circle background', ->
       expect($(el)).toContainElement('circle')
       # check if circle has the correct radius
-      expect($(el).find('circle').attr('r')).toBe('81')
+      expect($(el).find('circle').attr('r')).toBe('71.4')
       # check color
       expect($(el).find('circle').attr('fill')).toBe('#f5f5f5')
 
@@ -81,28 +81,25 @@ describe 'Progress Indicator Controller', ->
 
   describe 'arc method', ->
 
-    it 'should create an arc object with gven radius and tickness', ->
-      arc = ctrl.arc(20, 5)
+    it 'should create an arc object with given radius and tickness', ->
+      arc = ctrl.arc(20)
       expect(arc.outerRadius()()).toBe(20)
-      expect(arc.innerRadius()()).toBe(15)
+      expect(arc.innerRadius()()).toBe(20)
       expect(arc.startAngle()()).toBe(0)
 
-      arc = ctrl.arc(50, 15)
+      arc = ctrl.arc(50)
       expect(arc.outerRadius()()).toBe(50)
-      expect(arc.innerRadius()()).toBe(35)
+      expect(arc.innerRadius()()).toBe(50)
       expect(arc.startAngle()()).toBe(0)
 
   describe 'line method', ->
 
     it 'should create a line with given color and arc', ->
-      arc = ctrl.arc(20, 5)
-      line = ctrl.line('#ff0000', arc)
-      expect(line.attr('d')).toBe('M1.2246467991473533e-15,' +
-                                  '-20A20,20 0 0,1 1.2246467991473533e-15,' +
-                                  '-20L9.18485099360515e-16,-15A15,' +
-                                  '15 0 0,0 9.18485099360515e-16,-15Z')
-      expect(line.attr('stroke-linecap')).toBe('round')
+      arc = ctrl.arc(20)
+      line = ctrl.line('#ff0000', '8px', arc)
+      expect(line.attr('d')).not.toBeUndefined()
       expect(line.attr('stroke-linejoin')).toBe('round')
+      expect(line.attr('style')).toBe('stroke: #ff0000; stroke-width: 8px; ')
       expect(line.datum().endAngle).toBe(0)
 
       # possibly a bug in D3
@@ -112,8 +109,8 @@ describe 'Progress Indicator Controller', ->
 
     it 'should return a function that uses given arc as tween', ->
       # Not enough D3 knowledge to get this one working
-      arc = ctrl.arc(20, 5)
-      line = ctrl.line('#ff0000', arc)
+      arc = ctrl.arc(20)
+      line = ctrl.line('#ff0000', '8px', arc)
       # tween = ctrl.createTween(arc)
       # element = tween(d3.transition(), 30)
 
@@ -158,7 +155,7 @@ describe 'Progress Indicator Controller', ->
       setTimeout ->
         pathOuter = $(el).find('path').first().attr('style')
 
-        expect(pathOuter).toBe('fill: #78c000; ')
+        expect(pathOuter).toBe('stroke-width: 8px; stroke: #78c000; ')
 
         # end the test
         done()
