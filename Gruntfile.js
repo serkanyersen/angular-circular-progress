@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     'use strict';
 
     // Livereload port
-    var livereload = 111212;
+    var livereload = 1212;
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
