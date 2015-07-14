@@ -34,6 +34,18 @@ app.controller 'ProgressCtrl',
         else
           return '#78c000'
 
+      # return a font size adjusted to the value
+      getFontSize: (value) ->
+        length = (Number(value) or 0).toFixed(0).length
+        if length >= 7
+          return '1.7em'
+        if length >= 6
+          return '2em'
+        else if length >= 4
+          return '2.5em'
+        else
+          return '3em'
+
       # return a new tween function that uses
       # given arc generator for animation
       createTween: (arc) ->
@@ -73,7 +85,7 @@ app.controller 'ProgressCtrl',
 
         # Span for the number field which we will update later
         @number = line1.append('tspan')
-                      .style('font-size', '3em')
+                      .style('font-size', @getFontSize(0))
                       .style('fill', '#444')
                       .text('0')
 
@@ -110,4 +122,4 @@ app.controller 'ProgressCtrl',
             .call(@createTween(@innerArc), expected * @τ)
 
         # update the text
-        @number.text(actualPercentage.toFixed(0))
+        @number.text(actualPercentage.toFixed(0)).style('font-size', @getFontSize(actualPercentage))

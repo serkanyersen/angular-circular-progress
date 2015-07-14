@@ -79,6 +79,49 @@ describe 'Progress Indicator Controller', ->
       expect(ctrl.getColor(false)).toBe('#ff0000')
       expect(ctrl.getColor(-1)).toBe('#ff0000')
 
+  describe 'getFontSize method', ->
+
+    it 'should return 3em for normal values', ->
+      expect(ctrl.getFontSize(0)).toBe('3em')
+      expect(ctrl.getFontSize(1)).toBe('3em')
+      expect(ctrl.getFontSize(10)).toBe('3em')
+      expect(ctrl.getFontSize(100)).toBe('3em')
+
+    it 'should return 1.7em for number bigger or equal to 7 digits', ->
+      expect(ctrl.getFontSize(1000000)).toBe('1.7em')
+      expect(ctrl.getFontSize(10000000)).toBe('1.7em')
+      expect(ctrl.getFontSize(100000000)).toBe('1.7em')
+      expect(ctrl.getFontSize(1000000000)).toBe('1.7em')
+
+    it 'should return 2em for number with 6 digits', ->
+      expect(ctrl.getFontSize(100000)).toBe('2em')
+      expect(ctrl.getFontSize(999999)).toBe('2em')
+
+    it 'should return 2.5em for numbers with 4 and 5 digits', ->
+      expect(ctrl.getFontSize(1000)).toBe('2.5em')
+      expect(ctrl.getFontSize(9999)).toBe('2.5em')
+      expect(ctrl.getFontSize(10000)).toBe('2.5em')
+      expect(ctrl.getFontSize(99990)).toBe('2.5em')
+
+    it 'should allow negative values', ->
+      expect(ctrl.getFontSize(-1)).toBe('3em')
+      expect(ctrl.getFontSize(-100)).toBe('2.5em')
+      expect(ctrl.getFontSize(-1000)).toBe('2.5em')
+      expect(ctrl.getFontSize(-10000)).toBe('2em')
+      expect(ctrl.getFontSize(-100000)).toBe('1.7em')
+
+    it 'should work with long floating points', ->
+      expect(ctrl.getFontSize(10.12314234234)).toBe('3em')
+      expect(ctrl.getFontSize(1000.12314234234)).toBe('2.5em')
+      expect(ctrl.getFontSize(100000.12314234234)).toBe('2em')
+
+    it 'should work with wrong values', ->
+      expect(ctrl.getFontSize(false)).toBe('3em')
+      expect(ctrl.getFontSize()).toBe('3em')
+      expect(ctrl.getFontSize(undefined)).toBe('3em')
+      expect(ctrl.getFontSize('bad')).toBe('3em')
+      expect(ctrl.getFontSize('looong and bad')).toBe('3em')
+
   describe 'arc method', ->
 
     it 'should create an arc object with given radius and tickness', ->
