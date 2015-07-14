@@ -1,7 +1,7 @@
 # D3 & AngularJS Circular Progress Bar
 This is an experiment on AngularJS, CoffeeScript and D3.js.
 It creates a directive that takes two values `actual` and `expected`
-and draws a circular progress bar.
+and draws a circular progress bar. **Demo:** http://labs.serkan.io/d3-progress/
 
 <p align="center">
 <img src="http://i.imgur.com/AJ06AWE.png" />
