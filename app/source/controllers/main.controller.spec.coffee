@@ -36,7 +36,7 @@ describe 'Main Controller', ->
     # Due to the nature of random, this test might fail
     # randomly. This can be resolved by writing error
     # resistant tests, for example I can run this test 10
-    # and only pass if there are less the %50 errors
+    # times and only pass if there are less the 50% errors
     for i in [0..3]
       ctrl.random()
       expect(JSON.stringify ctrl.numbers).not.toBe(current)
