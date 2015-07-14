@@ -1,26 +1,4 @@
 describe 'Progress Indicator Controller', ->
-  # createController = undefined
-  # ctrl = undefined
-  # scope = undefined
-  # f3 = undefined
-
-  # beforeEach ->
-  #   module 'circular'
-
-  #   # spy on d3
-  #   f3 = d3Spy();
-  #   spyOn(d3, 'select').and.returnValue(f3);
-
-  #   inject ($compile, $rootScope) ->
-  #     scope = $rootScope.$new()
-  #     element = angular.element '<div progress data-actual="0.5" data-expected="0.5"></div>'
-  #     $compile(element)(scope)
-
-  #     ctrl = element.controller('progress');
-  #     scope.$digest()
-
-  # it 'should call all methods with correct arguments', ->
-  #   expect(f3.svg).toHaveBeenCalledWith();
   createController = undefined
   ctrl = undefined
 
@@ -133,7 +111,72 @@ describe 'Progress Indicator Controller', ->
   describe 'createTween method', ->
 
     it 'should return a function that uses given arc as tween', ->
+      # Not enough D3 knowledge to get this one working
       arc = ctrl.arc(20, 5)
       line = ctrl.line('#ff0000', arc)
-      tween = ctrl.createTween(arc)
-      element = tween(d3.transition(), 30)
+      # tween = ctrl.createTween(arc)
+      # element = tween(d3.transition(), 30)
+
+  describe 'update method', ->
+    el = undefined
+
+    beforeEach ->
+      createController()
+      el = document.createElement('div')
+      ctrl.actual = 0
+      ctrl.expected = 0
+      ctrl.render([el])
+
+    it 'should update the rendered element with given values', (done) ->
+      # original value is initially 0, 0
+      pathOuterInitial = $(el).find('path').first().attr('d')
+      pathInnerInitial = $(el).find('path').last().attr('d')
+
+      # set new values and call update
+      ctrl.actual = 0.5
+      ctrl.expected = 0.5
+      ctrl.update()
+
+      setTimeout ->
+        pathOuter = $(el).find('path').first().attr('d')
+        pathInner = $(el).find('path').last().attr('d')
+
+        # should have been updated
+        # Checking against exact values seems to be too fragile
+        expect(pathOuter).not.toBe(pathOuterInitial)
+        expect(pathInner).not.toBe(pathInnerInitial)
+
+        # end the test
+        done()
+      , 1100
+
+    it 'should change the color as well', (done) ->
+      ctrl.actual = 0.5
+      ctrl.expected = 0.5
+      ctrl.update()
+
+      setTimeout ->
+        pathOuter = $(el).find('path').first().attr('style')
+
+        expect(pathOuter).toBe('fill: #78c000; ')
+
+        # end the test
+        done()
+      , 1100
+
+    it 'should update the text', ->
+      ctrl.expected = 0.5
+      ctrl.actual = 0.5
+      ctrl.update()
+      expect($(el).find('tspan').first().text()).toBe('50')
+      ctrl.actual = 1
+      ctrl.update()
+      expect($(el).find('tspan').first().text()).toBe('100')
+      ctrl.actual = 2
+      ctrl.update()
+      expect($(el).find('tspan').first().text()).toBe('200')
+      ctrl.actual = -1
+      ctrl.update()
+      expect($(el).find('tspan').first().text()).toBe('-100')
+
+

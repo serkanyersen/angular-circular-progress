@@ -1,7 +1,7 @@
 module.exports = (config) ->
   config.set
     frameworks: [ 'jasmine' ]
-    reporters: [ 'dots' ]
+    reporters: [ 'spec' ]
     preprocessors: 'app/**/*.coffee': [ 'coffee' ]
     port: 8089
     hostname: 'localhost'
