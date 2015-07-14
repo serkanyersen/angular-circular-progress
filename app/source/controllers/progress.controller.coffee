@@ -8,8 +8,7 @@ app.controller 'ProgressCtrl',
         @rad = (@width / 2) - 10
         @offset = @rad * 0.02
 
-      # creates an arc with outer radius
-      # and given tickness
+      # creates an arc generator with given radius
       arc: (radius) ->
         d3.svg.arc()
           .outerRadius(radius)
@@ -17,7 +16,7 @@ app.controller 'ProgressCtrl',
           .startAngle(0)
 
       # draws a line with given color
-      # that follow given destination
+      # that follows given destination
       line: (color, width, d) ->
         @svg.append('path')
           .datum(endAngle: 0)
@@ -36,7 +35,7 @@ app.controller 'ProgressCtrl',
           return '#78c000'
 
       # return a new tween function that uses
-      # given arc for animation
+      # given arc generator for animation
       createTween: (arc) ->
         (transition, newAngle) ->
           transition.attrTween 'd', (d) ->
@@ -99,7 +98,8 @@ app.controller 'ProgressCtrl',
 
         # Percantage to show
         actualPercentage = (parseFloat(@actual) or 0) * 100
-
+        
+        # animate paths
         @outer.transition()
             .duration(1000)
             .style('stroke', @getColor(actual))
