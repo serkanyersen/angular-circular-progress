@@ -1,7 +1,7 @@
 app.controller 'ProgressCtrl',
     class ProgressCtrl
 
-      constructor: ($scope) ->
+      constructor: () ->
         @τ = 2 * Math.PI
         @width = 200
         @height = 200
